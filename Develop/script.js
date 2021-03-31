@@ -77,6 +77,7 @@ for (var i = 0; i < userOptions.passwordLength; i++) { //depending on user choic
   newPassword.push (readyPossibeArray);
 }
 console.log (newPassword);
+return newPassword.join(''); //join on empty space
 }
 
 
