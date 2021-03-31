@@ -35,16 +35,50 @@ function userInput () {
   var confirmSpecialcharacter = confirm("Would you like Specialcharacter letters?");
  
   var userChoices = {
-    passwordLength: passwordLength, 
+    passwordLength: passwordLength,  //function keys to be called later (key: value) values come from userInput function
     confirmUpperCase: confirmUppercase,
     confirmnumbers: confirmnumbers,
     confirmSpecialcharacter: confirmSpecialcharacter,
     confirmLowercase: confirmLowercase,
   }
   console.log (userChoices);
+  return userChoices;
 }
 
 //generate password function that takes in returned user input and applies at random arrays based on user input
+function generatePassword () {
+  var userOptions = userInput (); //example reference userOptions.confirmuppercase
+  var newPassword = [];
+  var possibleArray = [];
+
+
+if (userOptions.confirmUppercase) {
+  possibleArray = possibleArray.concat(upperCase);//if user says yes or no
+  possibleArray.push (shuffle (upperCase));
+}
+
+if (userOptions.confirmLowercase) {
+  possibleArray = possibleArray.concat(lowerCase);
+  possibleArray.push (shuffle (lowerCase));
+}
+
+if (userOptions.confirmSpecialcharacter) {
+  possibleArray = possibleArray.concat(specialCharacters);
+  possibleArray.push (shuffle (specialCharacters));
+}
+
+if (userOptions.confirmnumbers) {
+  possibleArray = possibleArray.concat(numbers);
+  possibleArray.push (shuffle (numbers));
+}
+
+for (var i = 0; i < userOptions.passwordLength; i++) { //depending on user choice of how long the password will be, iterate over an index of possiblearray andf shuffle it and then push it into new password array
+  var readyPossibeArray = shuffle (possibleArray);
+  newPassword.push (readyPossibeArray);
+}
+console.log (newPassword);
+}
+
 
 
 
@@ -62,7 +96,7 @@ var generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
 function writePassword() {
-  var password = userInput();
+  var password = generatePassword();
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
