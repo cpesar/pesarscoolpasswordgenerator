@@ -25,8 +25,18 @@ function shuffle (array) {
 
 function userInput () {
   var passwordLength = parseInt (prompt("How long do you want to be?")); //convert to integer
+  if (passwordLength < 8){
+    alert('Password Must be at least 8 characters.')
+    return
+  }
 
+  if (passwordLength > 128){
+    alert('Password must be less than 128 characters.')
+    return
+  }
+  
   var confirmUppercase = confirm("Would you like uppercase letters?"); //return booleans
+
 
   var confirmLowercase = confirm("Would you like lowercase letters?");
 
@@ -53,7 +63,7 @@ function generatePassword () {
 
 
 if (userOptions.confirmUppercase) {
-  possibleArray = possibleArray.concat(upperCase);//if user says yes or no
+  possibleArray = possibleArray.concat(upperCase);//if user says yes or no, if they say no skip if they say yes push a shuffled version of this selected array into the possiblearray(line 52)
   possibleArray.push (shuffle (upperCase));
 }
 
@@ -72,12 +82,12 @@ if (userOptions.confirmnumbers) {
   possibleArray.push (shuffle (numbers));
 }
 
-for (var i = 0; i < userOptions.passwordLength; i++) { //depending on user choice of how long the password will be, iterate over an index of possiblearray andf shuffle it and then push it into new password array
+for (var i = 0; i < userOptions.passwordLength; i++) { //depending on user choice of how long the password will be, iterate over an index of possiblearray and shuffle it and then push it into new password array
   var readyPossibeArray = shuffle (possibleArray);
   newPassword.push (readyPossibeArray);
 }
 console.log (newPassword);
-return newPassword.join(''); //join on empty space
+return newPassword.join(''); //return the newpassword array joined with no spaces
 }
 
 
